@@ -10,8 +10,6 @@ const DocumentManager = () => {
     const [selectedDoc, setSelectedDoc] = useState(null);
     const [documents, setDocuments] = useState([]);
 
-    console.log(documents);
-
     // Function to get cookie by name
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
@@ -21,8 +19,6 @@ const DocumentManager = () => {
 
     // Get logged-in user's ID from cookies
     const userid = JSON.parse(getCookie('user')).id;
-
-    console.log(userid);
 
     const handleClose = () => {
         setShowModal(false);
@@ -53,7 +49,6 @@ const DocumentManager = () => {
             // console.log("Form userid:", userid); // This should log the user ID correctly
 
             const filename = file.name;
-            console.log(filename);
 
             try {
                 // await axios.post('http://localhost:5000/uploads', formData, {
@@ -73,7 +68,6 @@ const DocumentManager = () => {
 
     const handleEdit = async ({ filelabel }) => {
 
-        console.log(selectedDoc.id);
         if (filelabel === '') {
             alert("File Description cannot be blank");
             return;
@@ -116,7 +110,6 @@ const DocumentManager = () => {
                 }
             });
             setDocuments(response.data);
-            // console.log(response.data);
         } catch (err) {
             console.error('Error fetching documents:', err);
         }

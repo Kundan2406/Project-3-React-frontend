@@ -1,14 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './chatstyle';
 import axios from 'axios';
 
 const ChatBox = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
+    const chatContainerRef = useRef(null);
 
     useEffect(() => {
         fetchMessages();
     }, []);
+
+    // Scroll to the bottom of the chat container
+    useEffect(() => {        
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const fetchMessages = async () => {
         try {
@@ -73,10 +81,11 @@ const ChatBox = () => {
             <div className='main-div'>
                 <h1>Chat Lists</h1>
                 <div style={styles.chatBoxContainer}>
-                    <div style={styles.chatWindow}>
+                    <div style={styles.chatWindow} ref={chatContainerRef}>
                         {messages.map((message, index) => (
                             <div key={index} style={styles.messages}>
-                                <div style={styles.textLeft}><b>{message.username}</b><br />
+                                <div style={styles.textLeft}>
+                                    <b>{message.username}</b><br />
                                     <span>{message.message}</span>
                                 </div>
                                 <div style={styles.textRight}>[{formatDate(message.time)}]</div>

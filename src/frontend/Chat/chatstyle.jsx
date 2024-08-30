@@ -16,6 +16,9 @@ const styles = {
         borderBottom: '1px solid #ccc',
         marginBottom: '10px',
     },
+    textLeft: {
+        textAlign: 'left',
+    },
     messages: {
         display: 'flex',
         justifyContent: 'space-between',
